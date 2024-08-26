@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Добро пожаловать на Мой сайт{% endblock %}
+{% block content %}
+<!-- Главный баннер -->
+<div class="jumbotron text-center bg-primary text-white" style="background: url('{% static "images/banner.jpg" %}') no-repeat center center; background-size: cover;">
+    <div class="container">
+        <h1 class="display-4">Добро пожаловать</h1>
+        <p class="lead">Тут текст</p>
+        <a href="/payment/" class="btn btn-light btn-lg mt-3">Оплатить обучение</a>
+    </div>
+</div>
+{% endblock %}

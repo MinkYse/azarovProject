@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Информация{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mt-4">Информация о детях</h1>
+        <form method="get" class="mb-3">
+            <div class="input-group">
+                <select name="hall" class="form-select" id="hall">
+                    <option value="">Выберите зал</option>
+                    {% for hall in halls %}
+                        <option value="{{ hall.id }}" {% if hall.id|stringformat:"s" == selected_hall %}selected{% endif %}>
+                            {{ hall.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary">Показать</button>
+            </div>
+        </form>
+        {% if children %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ФИО Ребенка</th>
+                        <th>Вариант обучения</th>
+                        <th>Оплата</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for child in children %}
+                        <tr>
+                            <td>{{ child.full_name }}</td>
+                            <td>{{ child.training_option.name }}</td>
+                            <td>{{ child.is_paid|yesno:"Да,Нет" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Нет данных для выбранного зала.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

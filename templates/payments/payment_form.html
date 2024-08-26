@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Оплата{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="mt-4">Оплата обучения</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="hall" class="form-label">Выберите зал</label>
+                {{ form.hall|as_crispy_field }}
+            </div>
+            <div class="mb-3">
+                <label for="training_option" class="form-label">Выберите вариант обучения</label>
+                {{ form.training_option|as_crispy_field }}
+            </div>
+            <div class="mb-3">
+                <label for="child" class="form-label">Выберите ребенка</label>
+                {{ form.child|as_crispy_field }}
+            </div>
+            <div class="mb-3">
+                <label for="amount" class="form-label">Сумма оплаты</label>
+                {{ form.amount|as_crispy_field }}
+            </div>
+            <button type="submit" class="btn btn-primary">Оплатить</button>
+        </form>
+    </div>
+</div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const trainingOptionField = document.querySelector('#id_training_option');
+        const amountField = document.querySelector('#id_amount');
+        const childField = document.querySelector('#id_child');
+        const hallField = document.querySelector('select[name="hall"]');
+
+        function updateChildren() {
+            const hallId = hallField.value;
+            const trainingOptionId = trainingOptionField.value;
+            if (hallId && trainingOptionId) {
+                fetch(`{% url 'get_children' %}?hall_id=${hallId}&training_option_id=${trainingOptionId}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-Requested-With": "XMLHttpRequest",
+                        "HTTP_X_REQUESTED_WITH": "XMLHttpRequest"
+                    }
+                }
+            )
+            .then(response => response.json())
+                .then(data => {
+                    childField.innerHTML = '';
+                    data.forEach(function(child) {
+                            const option = document.createElement('option');
+                            option.value = child.id;
+                            option.textContent = child.full_name;
+                            childField.appendChild(option);
+                        });
+                })
+            }
+        }
+
+        trainingOptionField.addEventListener('change', updateChildren);
+        hallField.addEventListener('change', updateChildren);
+        trainingOptionField.addEventListener('change', function () {
+            const selectedOption = trainingOptionField.options[trainingOptionField.selectedIndex];
+            const price = selectedOption.textContent.match(/\d+/)[0];
+            amountField.value = price;
+        });
+    });
+    </script>
+{% endblock %}

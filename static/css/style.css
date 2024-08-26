@@ -1,0 +1,60 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header.navbar-dark {
+    background-color: #343a40;
+}
+
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: #d4d4d4;
+    text-decoration: none;
+}
+
+footer img {
+    width: 50px; /* Устанавливаем размер иконок */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* style.css */
+
+.jumbotron {
+    padding: 100px 0;
+    color: #fff;
+}
+
+.jumbotron h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+
+.jumbotron p {
+    font-size: 1.5rem;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+section p.lead {
+    font-size: 1.25rem;
+}
+
+section.bg-light {
+    background-color: #f8f9fa;
+}
