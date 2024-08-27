@@ -58,3 +58,25 @@ section p.lead {
 section.bg-light {
     background-color: #f8f9fa;
 }
+
+/* style.css */
+
+.vh-100 {
+    min-height: 100vh;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.display-1 {
+    font-size: 4.5rem;
+}
+
+.fw-bold {
+    font-weight: 700;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
