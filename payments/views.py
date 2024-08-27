@@ -1,8 +1,11 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from .form import PaymentForm, ChildForm
 from .models import Child, Hall
 # from .payment_processor import create_payment
+
+import json
 
 
 def add_child_view(request):
@@ -23,14 +26,44 @@ def payment_view(request):
         if form.is_valid():
             child = form.cleaned_data['child']
             option = form.cleaned_data['training_option']
-            # payment = create_payment(option.price, f"Оплата за обучение {child.full_name}")
-            child.is_paid = False  # Платеж еще не завершен
-            child.save()
+            # payment = create_payment(option.price, f"Оплата за обучение {child.full_name}", child.id)
+            # return redirect(payment.confirmation.confirmation_url)
             return redirect('/info')
     else:
         form = PaymentForm()
 
     return render(request, 'payments/payment_form.html', {'form': form})
+
+
+@csrf_exempt
+def payment_webhook_view(request):
+    if request.method == 'POST':
+        try:
+            # Получаем данные из POST-запроса и преобразуем их в словарь
+            data = json.loads(request.body.decode('utf-8'))
+
+            # Обрабатываем уведомление от YooKassa
+            notification = WebhookNotification(data)
+            if notification.event == WebhookNotificationEventType.PAYMENT_SUCCEEDED:
+                payment_object = notification.object
+
+                # Извлекаем ID платежа и находим соответствующую запись в базе данных
+                child_id = payment_object.metadata.get('child_id')
+                if child_id:
+                    try:
+                        child = Child.objects.get(id=child_id)
+                        child.is_paid = True
+                        child.save()
+                        return JsonResponse({'status': 'success'}, status=200)
+                    except Child.DoesNotExist:
+                        return JsonResponse({'status': 'error', 'message': 'Child not found'}, status=404)
+
+            return JsonResponse({'status': 'unhandled_event'}, status=400)
+
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+    else:
+        return JsonResponse({'status': 'invalid_method'}, status=405)
 
 
 def get_children(request):
@@ -66,6 +99,7 @@ def terms_view(request):
 
 def privacy_view(request):
     return render(request, 'payments/privacy.html')
+
 
 def home_view(request):
     return render(request, 'home.html')

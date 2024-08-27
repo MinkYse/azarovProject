@@ -8,6 +8,10 @@ class Hall(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Зал'
+        verbose_name_plural = 'Залы'
+
 
 class TrainingOption(models.Model):
     name = models.CharField(max_length=100)
@@ -25,3 +29,7 @@ class Child(models.Model):
 
     def __str__(self):
         return self.full_name
+
+    class Meta:
+        verbose_name = 'Ученик'
+        verbose_name_plural = 'Ученики'

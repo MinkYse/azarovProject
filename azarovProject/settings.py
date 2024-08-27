@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +43,13 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Tech Admin",
+    "site_header": "AzarovTeam",
+    "site_brand": "AzarovTeam",
+    "welcome_sign": "Добро пожаловать в админ панель",
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -108,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 

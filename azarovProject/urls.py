@@ -22,6 +22,7 @@ urlpatterns = [
     path('', views.home_view, name='home'),
     path('admin/', admin.site.urls),
     path('payment/', views.payment_view, name='payment'),
+    path('payment/webhook/', views.payment_webhook_view, name='payment_webhook'),
     path('payment/success', views.payment_success_view, name='payment_success'),
     path('info/', views.info_view, name='info'),
     path('add_child/', views.add_child_view, name='add_child'),
