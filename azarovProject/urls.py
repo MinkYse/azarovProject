@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from payments import views
 
 urlpatterns = [
@@ -26,7 +27,10 @@ urlpatterns = [
     path('payment/success', views.payment_success_view, name='payment_success'),
     path('info/', views.info_view, name='info'),
     path('add_child/', views.add_child_view, name='add_child'),
+    path('child/<int:pk>/', views.child_detail_view, name='child_detail'),
     path('get_children/', views.get_children, name='get_children'),
     path('terms/', views.terms_view, name='terms'),
     path('privacy/', views.privacy_view, name='privacy'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
 ]

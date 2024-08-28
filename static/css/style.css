@@ -80,3 +80,193 @@ section.bg-light {
 .text-danger {
     color: #dc3545 !important;
 }
+
+/* style.css */
+
+/* Основной красный цвет */
+:root {
+    --primary-color: #ff0000; /* Красный цвет */
+    --secondary-color: #ffffff; /* Белый цвет */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--secondary-color); /* Белый фон */
+    color: var(--primary-color); /* Красный текст */
+}
+
+.jumbotron {
+    padding: 100px 0;
+    color: var(--secondary-color); /* Белый текст */
+    background-color: var(--primary-color); /* Красный фон */
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(255, 0, 0, 0.1); /* Красный при наведении */
+}
+
+.card {
+    border-radius: 10px;
+    background-color: var(--secondary-color); /* Белый фон карточек */
+    color: var(--primary-color); /* Красный текст */
+    border: 1px solid var(--primary-color); /* Красная рамка */
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0;
+    background-color: var(--primary-color); /* Красный фон */
+    color: var(--secondary-color); /* Белый текст */
+}
+
+.card-body {
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    color: var(--primary-color); /* Красный текст */
+}
+
+.btn-primary {
+    background-color: var(--primary-color); /* Красные кнопки */
+    border-color: var(--primary-color);
+    color: var(--secondary-color); /* Белый текст */
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color); /* Белые кнопки */
+    border-color: var(--primary-color); /* Красная рамка */
+    color: var(--primary-color); /* Красный текст */
+}
+
+footer {
+    background-color: var(--primary-color); /* Красный фон футера */
+    color: var(--secondary-color); /* Белый текст */
+}
+
+footer a {
+    color: var(--secondary-color); /* Белые ссылки */
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: #ffe5e5; /* Светло-красный при наведении */
+    text-decoration: none;
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important; /* Красный фон для элементов с классом bg-primary */
+}
+
+.bg-light {
+    background-color: var(--secondary-color) !important; /* Белый фон для элементов с классом bg-light */
+}
+
+.text-white {
+    color: var(--secondary-color) !important; /* Белый текст */
+}
+/* style.css */
+
+/* Основные цвета */
+:root {
+    --primary-color: #ff0000; /* Красный */
+    --secondary-color: #ffffff; /* Белый */
+    --text-color: #000000; /* Черный текст */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: #cc0000; /* Темно-красный при наведении */
+    text-decoration: underline;
+}
+
+header {
+    background-color: var(--primary-color);
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: var(--secondary-color);
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffe5e5; /* Светло-красный при наведении */
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+footer a {
+    color: var(--secondary-color);
+}
+
+footer a:hover {
+    color: #ffe5e5; /* Светло-красный при наведении */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.btn-primary:hover {
+    background-color: #cc0000;
+    border-color: #cc0000;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: #ffe5e5;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.jumbotron {
+    padding: 100px 0;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    background-size: cover;
+    background-position: center;
+}
+
+.card {
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.card-body {
+    color: var(--primary-color);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+}

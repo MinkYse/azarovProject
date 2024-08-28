@@ -1,5 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from .form import PaymentForm, ChildForm
 from .models import Child, Hall
@@ -8,6 +9,7 @@ from .models import Child, Hall
 import json
 
 
+@login_required
 def add_child_view(request):
     if request.method == 'POST':
         form = ChildForm(request.POST)
@@ -18,6 +20,11 @@ def add_child_view(request):
         form = ChildForm()
 
     return render(request, 'payments/add_child.html', {'form': form})
+
+
+def child_detail_view(request, pk):
+    child = get_object_or_404(Child, pk=pk)
+    return render(request, 'payments/child_detail.html', {'child': child})
 
 
 def payment_view(request):
@@ -81,6 +88,7 @@ def payment_success_view(request):
     return render(request, 'payments/payment_success.html')
 
 
+@login_required
 def info_view(request):
     halls = Hall.objects.all()
     selected_hall = request.GET.get('hall')

@@ -1,0 +1,18 @@
+<!-- child_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Информация о ребёнке{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="mt-4">Информация о ребёнке</h1>
+        <ul class="list-group">
+            <li class="list-group-item"><strong>ФИО:</strong> {{ child.full_name }}</li>
+            <li class="list-group-item"><strong>Зал:</strong> {{ child.hall.name }}</li>
+            <li class="list-group-item"><strong>Вариант обучения:</strong> {{ child.training_option.name }}</li>
+            <li class="list-group-item"><strong>Оплата:</strong> {{ child.is_paid|yesno:"Да,Нет" }}</li>
+        </ul>
+        <a href="{% url 'info' %}" class="btn btn-primary mt-4">Назад к списку</a>
+    </div>
+</div>
+{% endblock %}
