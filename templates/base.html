@@ -30,7 +30,10 @@
                                 <a class="nav-link" href="/add_child/">Добавить ребенка</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                                <form action="{% url 'logout' %}" method="post">
+                                  {% csrf_token %}
+                                  <button class="nav-item" type="submit">Выход</button>
+                               </form>
                             </li>
                         {% else %}
                             <li class="nav-item">
