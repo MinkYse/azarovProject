@@ -26,8 +26,7 @@ def add_child_view(request):
             child.parents.add(parent1)
 
             # Проверка и добавление второго родителя, если данные введены
-            if (form.cleaned_data['parent2_first_name'] and form.cleaned_data['parent2_last_name']
-                    and form.cleaned_data['parent2_phone_number']):
+            if form.cleaned_data['parent2'] and form.cleaned_data['parent2_phone_number']:
                 parent2 = Parent(
                     full_name=form.cleaned_data['parent2'],
                     phone_number=form.cleaned_data['parent2_phone_number']
