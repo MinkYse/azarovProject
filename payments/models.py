@@ -21,11 +21,20 @@ class TrainingOption(models.Model):
         return f"{self.name} - {self.price} руб."
 
 
+class Parent(models.Model):
+    full_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=20)
+
+    def __str__(self):
+        return f'fullname'
+
+
 class Child(models.Model):
     full_name = models.CharField(max_length=255)
     hall = models.ForeignKey(Hall, on_delete=models.CASCADE)
     training_option = models.ForeignKey(TrainingOption, on_delete=models.CASCADE)
     is_paid = models.BooleanField(default=False)
+    parents = models.ManyToManyField(Parent, blank=True)
 
     def __str__(self):
         return self.full_name

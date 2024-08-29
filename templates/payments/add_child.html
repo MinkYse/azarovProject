@@ -8,19 +8,42 @@
         <form method="post">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="full_name" class="form-label">ФИО ребенка</label>
                 {{ form.full_name|as_crispy_field }}
             </div>
             <div class="mb-3">
-                <label for="hall" class="form-label">Зал</label>
                 {{ form.hall|as_crispy_field }}
             </div>
             <div class="mb-3">
-                <label for="training_option" class="form-label">Вариант обучения</label>
                 {{ form.training_option|as_crispy_field }}
             </div>
+            <div class="mb-3">
+                {{ form.parent1 | as_crispy_field }}
+            </div>
+            <div class="mb-3">
+                {{ form.parent1_phone_number | as_crispy_field }}
+            </div>
+            <div id="parent2-fields">
+                <div class="mb-3">
+                    {{ form.parent2 | as_crispy_field }}
+                </div>
+                <div class="mb-3">
+                    {{ form.parent2_phone_number | as_crispy_field }}
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="add-parent2-btn" onclick="showParent2Fields()">Добавить второго родителя</button>
             <button type="submit" class="btn btn-primary">Добавить</button>
         </form>
     </div>
 </div>
+<style>
+    #parent2-fields {
+        display: none;
+    }
+</style>
+<script>
+    function showParent2Fields() {
+        document.getElementById('parent2-fields').style.display = 'block';
+        document.getElementById('add-parent2-btn').style.display = 'none';
+    }
+</script>
 {% endblock %}

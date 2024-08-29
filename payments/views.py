@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from .form import PaymentForm, ChildForm
-from .models import Child, Hall
+from .models import Child, Hall, Parent
 # from .payment_processor import create_payment
 
 import json
@@ -14,10 +14,34 @@ def add_child_view(request):
     if request.method == 'POST':
         form = ChildForm(request.POST)
         if form.is_valid():
-            form.save()
+            child = form.save(commit=False)
+            child.save()
+
+            # Создание и добавление первого родителя
+            parent1 = Parent(
+                first_name=form.cleaned_data['parent1_first_name'],
+                last_name=form.cleaned_data['parent1_last_name'],
+                phone_number=form.cleaned_data['parent1_phone_number']
+            )
+            parent1.save()
+            child.parents.add(parent1)
+
+            # Проверка и добавление второго родителя, если данные введены
+            if (form.cleaned_data['parent2_first_name'] and form.cleaned_data['parent2_last_name']
+                    and form.cleaned_data['parent2_phone_number']):
+                parent2 = Parent(
+                    first_name=form.cleaned_data['parent2_first_name'],
+                    last_name=form.cleaned_data['parent2_last_name'],
+                    phone_number=form.cleaned_data['parent2_phone_number']
+                )
+                parent2.save()
+                child.parents.add(parent2)
+
+            child.save()
             return redirect('/info')  # Перенаправляем на страницу списка детей или на другую страницу
     else:
         form = ChildForm()
+        print(form)
 
     return render(request, 'payments/add_child.html', {'form': form})
 

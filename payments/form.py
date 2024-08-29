@@ -37,3 +37,14 @@ class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
         fields = ['full_name', 'hall', 'training_option']
+        labels = {
+            "full_name": ("ФИО ребёнка:"),
+            "hall": ("Зал:"),
+            "training_option": ("Вариант обучения:")
+        }
+
+    parent1 = forms.CharField(label='ФИО родителя:', required=True)
+    parent1_phone_number = forms.CharField(label='Номер родителя:', required=True)
+
+    parent2 = forms.CharField(label='ФИО 2 родителя:', required=False)
+    parent2_phone_number = forms.CharField(label='Номер 2 родителя:', required=False)
