@@ -1,4 +1,19 @@
 /* style.css */
+{% load static %}
+@font-face {
+    font-family: 'Gilroy';
+    src: url('{% static 'fonts/Gilroy-Light.ttf' %}') format('truetype');
+    font-weight: 300; /* Light */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-Medium';
+    src: url('{% static 'fonts/Gilroy-Medium.ttf' %}') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
 
 body {
     font-family: Arial, sans-serif;
@@ -85,14 +100,15 @@ section.bg-light {
 
 /* Основной красный цвет */
 :root {
-    --primary-color: #ff0000; /* Красный цвет */
+    --primary-color: rgba(187,39,26); /* Красный цвет */
     --secondary-color: #ffffff; /* Белый цвет */
+    --text-color: #000000; /* Черный текст */
 }
 
 body {
     font-family: 'Arial', sans-serif;
     background-color: var(--secondary-color); /* Белый фон */
-    color: var(--primary-color); /* Красный текст */
+    color: var(--text-color); /* Красный текст */
 }
 
 .jumbotron {
@@ -127,7 +143,7 @@ body {
 
 h1, h2, h3 {
     font-weight: 700;
-    color: var(--primary-color); /* Красный текст */
+    color: var(--secondary-color); /* Красный текст */
 }
 
 .btn-primary {
@@ -172,7 +188,7 @@ footer a:hover {
 
 /* Основные цвета */
 :root {
-    --primary-color: #ff0000; /* Красный */
+    --primary-color: rgba(187, 39, 26); /* Красный */
     --secondary-color: #ffffff; /* Белый */
     --text-color: #000000; /* Черный текст */
 }
@@ -194,19 +210,59 @@ a:hover {
 }
 
 header {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color); /* Белый фон */
+    border-bottom: 1px solid #e0e0e0; /* Легкий тень или линия разделения */
+    padding: 15px 0;
 }
 
 .navbar-brand {
     font-weight: bold;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    margin-right: 15px;
+    width: 60px; /* Увеличение ширины логотипа */
+    height: 60px;
+}
+
+.navbar-brand .school-name {
+    font-size: 1.4rem; /* Размер шрифта для основной надписи */
+    font-family: 'Gilroy-Medium', sans-serif;
+    font-weight: 700; /* Более жирный шрифт для первой строки */
+}
+
+.navbar-brand .motto {
+    font-size: 1.2rem; /* Размер шрифта для подзаголовка */
+    font-weight: 300; /* Обычный шрифт для второй строки */
+    letter-spacing: 0.05em;
+    font-family: 'Gilroy', sans-serif;
+    color: var(--primary-color); /* Черный текст */
 }
 
 .navbar-nav .nav-link {
-    color: var(--secondary-color);
+    color: var(--text-color); /* Черный текст */
+    font-size: 1.2rem; /* Увеличение размера шрифта */
+    padding: 10px 20px;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    text-decoration: none;
 }
 
 .navbar-nav .nav-link:hover {
-    color: #ffe5e5; /* Светло-красный при наведении */
+    color: var(--secondary-color); /* Белый текст при наведении */
+    background-color: var(--primary-color); /* Красный фон при наведении */
+    border-radius: 5px; /* Слегка округлые края */
+    text-decoration: none;
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--secondary-color); /* Белый текст для активной страницы */
+    background-color: var(--primary-color); /* Красный фон для активной страницы */
+    border-radius: 5px;
+    text-decoration: none;
 }
 
 footer {
@@ -226,6 +282,9 @@ footer a:hover {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     color: var(--secondary-color);
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .btn-primary:hover {
@@ -269,4 +328,35 @@ footer a:hover {
 
 .table-hover tbody tr:hover {
     background-color: rgba(255, 0, 0, 0.1);
+}
+
+.form {
+    background-color: var(--secondary-color); /* Белый фон формы */
+    border-radius: 10px; /* Округлые углы формы */
+    padding: 20px; /* Отступы внутри формы */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+.form-label {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 300;
+    color: var(--text-color); /* Черный текст */
+}
+
+.form-select, .form-control {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 300;
+    border-radius: 5px; /* Округлые углы полей формы */
+    padding: 10px; /* Увеличенный отступ внутри полей */
+    border: 1px solid #ccc; /* Легкая граница вокруг полей */
+    transition: border-color 0.3s ease-in-out;
+}
+
+.form-select:focus, .form-control:focus {
+    border-color: var(--primary-color); /* Красная граница при фокусе */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.3); /* Легкое свечение при фокусе */
+}
+
+.asteriskField {
+    display: none;
 }

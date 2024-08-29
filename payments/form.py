@@ -3,10 +3,10 @@ from .models import Hall, TrainingOption, Child
 
 
 class PaymentForm(forms.Form):
-    hall = forms.ModelChoiceField(queryset=Hall.objects.all(), label="Зал")
-    training_option = forms.ModelChoiceField(queryset=TrainingOption.objects.all(), label="Вариант обучения")
-    child = forms.ModelChoiceField(queryset=Child.objects.none(), label="Ребенок")
-    amount = forms.DecimalField(max_digits=10, decimal_places=2, label="Сумма", disabled=True, required=False)
+    hall = forms.ModelChoiceField(queryset=Hall.objects.all(), label="Зал:")
+    training_option = forms.ModelChoiceField(queryset=TrainingOption.objects.all(), label="Вариант обучения:")
+    child = forms.ModelChoiceField(queryset=Child.objects.none(), label="Ребенок:")
+    amount = forms.DecimalField(max_digits=10, decimal_places=2, label="Сумма оплаты:", disabled=True, required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

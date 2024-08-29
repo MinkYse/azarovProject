@@ -5,22 +5,18 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <h1 class="mt-4">Оплата обучения</h1>
-        <form method="post">
+        <form class="form" method="post">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="hall" class="form-label">Выберите зал</label>
                 {{ form.hall|as_crispy_field }}
             </div>
             <div class="mb-3">
-                <label for="training_option" class="form-label">Выберите вариант обучения</label>
                 {{ form.training_option|as_crispy_field }}
             </div>
             <div class="mb-3">
-                <label for="child" class="form-label">Выберите ребенка</label>
                 {{ form.child|as_crispy_field }}
             </div>
             <div class="mb-3">
-                <label for="amount" class="form-label">Сумма оплаты</label>
                 {{ form.amount|as_crispy_field }}
             </div>
             <button type="submit" class="btn btn-primary">Оплатить</button>
