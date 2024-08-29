@@ -19,8 +19,7 @@ def add_child_view(request):
 
             # Создание и добавление первого родителя
             parent1 = Parent(
-                first_name=form.cleaned_data['parent1_first_name'],
-                last_name=form.cleaned_data['parent1_last_name'],
+                full_name=form.cleaned_data['parent1'],
                 phone_number=form.cleaned_data['parent1_phone_number']
             )
             parent1.save()
@@ -30,8 +29,7 @@ def add_child_view(request):
             if (form.cleaned_data['parent2_first_name'] and form.cleaned_data['parent2_last_name']
                     and form.cleaned_data['parent2_phone_number']):
                 parent2 = Parent(
-                    first_name=form.cleaned_data['parent2_first_name'],
-                    last_name=form.cleaned_data['parent2_last_name'],
+                    full_name=form.cleaned_data['parent2'],
                     phone_number=form.cleaned_data['parent2_phone_number']
                 )
                 parent2.save()
