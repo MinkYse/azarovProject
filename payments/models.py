@@ -26,7 +26,18 @@ class Parent(models.Model):
     phone_number = models.CharField(max_length=20)
 
     def __str__(self):
-        return f'fullname'
+        return self.full_name
+
+    class Meta:
+        verbose_name = 'Родитель'
+        verbose_name_plural = 'Родители'
+
+
+class SourceOfInfo(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class Child(models.Model):
@@ -35,6 +46,8 @@ class Child(models.Model):
     training_option = models.ForeignKey(TrainingOption, on_delete=models.CASCADE)
     is_paid = models.BooleanField(default=False)
     parents = models.ManyToManyField(Parent, blank=True)
+    is_vip = models.BooleanField(default=False)
+    source_of_info = models.ForeignKey(SourceOfInfo, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.full_name

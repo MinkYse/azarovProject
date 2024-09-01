@@ -16,7 +16,6 @@ def add_child_view(request):
         if form.is_valid():
             child = form.save(commit=False)
             child.save()
-
             # Создание и добавление первого родителя
             parent1 = Parent(
                 full_name=form.cleaned_data['parent1'],
@@ -33,8 +32,6 @@ def add_child_view(request):
                 )
                 parent2.save()
                 child.parents.add(parent2)
-
-            child.save()
             return redirect('/info')  # Перенаправляем на страницу списка детей или на другую страницу
     else:
         form = ChildForm()
@@ -56,7 +53,7 @@ def payment_view(request):
             option = form.cleaned_data['training_option']
             # payment = create_payment(option.price, f"Оплата за обучение {child.full_name}", child.id)
             # return redirect(payment.confirmation.confirmation_url)
-            return redirect('/info')
+            return redirect('/home')
     else:
         form = PaymentForm()
 

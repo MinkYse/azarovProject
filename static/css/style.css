@@ -143,7 +143,7 @@ body {
 
 h1, h2, h3 {
     font-weight: 700;
-    color: var(--secondary-color); /* Красный текст */
+    color: var(--primary-color); /* Красный текст */
 }
 
 .btn-primary {
@@ -221,6 +221,7 @@ header {
     font-size: 1.5rem;
     display: flex;
     align-items: center;
+    flex-grow: 1;
 }
 
 .navbar-brand img {
@@ -230,18 +231,44 @@ header {
 }
 
 .navbar-brand .school-name {
-    font-size: 1.4rem; /* Размер шрифта для основной надписи */
+    font-size: 1.4rem;
     font-family: 'Gilroy-Medium', sans-serif;
-    font-weight: 700; /* Более жирный шрифт для первой строки */
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 .navbar-brand .motto {
-    font-size: 1.2rem; /* Размер шрифта для подзаголовка */
-    font-weight: 300; /* Обычный шрифт для второй строки */
+    font-size: 1.2rem;
+    font-weight: 300;
     letter-spacing: 0.05em;
     font-family: 'Gilroy', sans-serif;
-    color: var(--primary-color); /* Черный текст */
+    color: var(--primary-color);
+    white-space: nowrap;
 }
+
+@media (max-width: 576px) {
+    .navbar-brand .school-name {
+        font-size: 1.1rem;
+        white-space: normal;
+    }
+
+    .navbar-brand .motto {
+        font-size: 1rem;
+        white-space: normal; /* Разрешаем перенос текста на мобильных устройствах */
+    }
+
+    .navbar-brand .d-flex {
+        text-align: left; /* Центрируем текст на мобильных */
+    }
+
+}
+
+.navbar-toggler {
+    width: 100%; /* Задает ширину кнопки на всю доступную ширину */
+    justify-content: center; /* Центрирует содержимое кнопки */
+    margin-top: 10px;
+}
+
 
 .navbar-nav .nav-link {
     color: var(--text-color); /* Черный текст */
