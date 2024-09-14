@@ -17,12 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 from payments import views
 
 urlpatterns = [
-    path('', views.home_view, name='home'),
     path('admin/', admin.site.urls),
-    path('payment/', views.payment_view, name='payment'),
+    path('', views.payment_view, name='payment'),
     path('payment/webhook/', views.payment_webhook_view, name='payment_webhook'),
     path('payment/success', views.payment_success_view, name='payment_success'),
     path('info/', views.info_view, name='info'),
@@ -33,4 +34,12 @@ urlpatterns = [
     path('privacy/', views.privacy_view, name='privacy'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('pdfs/', views.pdf_page_view, name='pdf_list'),
+    path('results', views.business_summary, name='results'),
+    path('applications/', views.application_list, name='applications'),
+    path('applications/<int:pk>/update/', views.application_update, name='application-update'),
+    path('admin-page', views.admin_page, name='admin_page')
 ]
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

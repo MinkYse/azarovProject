@@ -1,5 +1,5 @@
 from django import forms
-from .models import Hall, TrainingOption, Child
+from .models import Hall, TrainingOption, Child, Application
 
 
 class PaymentForm(forms.Form):
@@ -36,11 +36,12 @@ class PaymentForm(forms.Form):
 class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
-        fields = ['full_name', 'hall', 'training_option']
+        fields = ['full_name', 'hall', 'training_option', 'source_of_info']
         labels = {
             "full_name": ("ФИО ребёнка:"),
             "hall": ("Зал:"),
-            "training_option": ("Вариант обучения:")
+            "training_option": ("Вариант обучения:"),
+            "source_of_info": ("Откуда узнали:")
         }
 
     parent1 = forms.CharField(label='ФИО родителя:', required=True)
@@ -48,3 +49,13 @@ class ChildForm(forms.ModelForm):
 
     parent2 = forms.CharField(label='ФИО 2 родителя:', required=False)
     parent2_phone_number = forms.CharField(label='Номер 2 родителя:', required=False)
+
+
+class ApplicationForm(forms.ModelForm):
+    class Meta:
+        model = Application
+        fields = ['status', 'hall']
+        labels = {
+            "status": ("Статус заявки:"),
+            "hall": ("Зал:")
+        }

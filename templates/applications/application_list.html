@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Заявки{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Заявки</h1>
+
+<div class="row">
+    {% for application in applications %}
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="position-absolute top-0 end-0 p-2">
+                {% if application.status  %}
+                    <span class="badge bg-success">Обработано</span>
+                {% else %}
+                    <span class="badge bg-danger">Не обработано</span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>Имя:</strong> {{ application.name }} </p>
+                <p class="card-text"><strong>Телефон:</strong> {{ application.phone }}</p>
+                <p class="card-text"><strong>Сообщение:</strong> {{ application.message }}</p>
+                <p class="card-text">
+                    <strong>Зал:</strong>
+                    {% if application.hall %}
+                    {{ application.hall.name }}
+                    {% else %}
+                    Не назначено
+                    {% endif %}
+                </p>
+                <a href="{% url 'application-update' application.id %}" class="btn btn-primary">Редактировать</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

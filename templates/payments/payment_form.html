@@ -54,17 +54,19 @@
                             option.textContent = child.full_name;
                             childField.appendChild(option);
                         });
+                    const price = data[0].training_option__price;
+                    amountField.value = price;
                 })
             }
         }
 
         trainingOptionField.addEventListener('change', updateChildren);
         hallField.addEventListener('change', updateChildren);
-        trainingOptionField.addEventListener('change', function () {
-            const selectedOption = trainingOptionField.options[trainingOptionField.selectedIndex];
-            const price = selectedOption.textContent.match(/\d+/)[0];
-            amountField.value = price;
-        });
+        {#trainingOptionField.addEventListener('change', function () {#}
+        {#    const selectedOption = trainingOptionField.options[trainingOptionField.selectedIndex];#}
+        {#    const price = selectedOption.textContent.match(/\d+/)[0];#}
+        {#    amountField.value = price;#}
+        {#});#}
     });
     </script>
 {% endblock %}

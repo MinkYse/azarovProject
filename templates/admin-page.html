@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Администраторская панель{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Администраторская панель</h1>
+
+    <div class="row">
+        <!-- Карточка для Results -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Бизнес-результаты</h4>
+                    <p class="card-text">Просмотр сводной информации по бизнесу.</p>
+                    <a href="{% url 'results' %}" class="btn btn-primary w-100">Перейти к результатам</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Карточка для Applications -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body position-relative text-center">
+                    <h4 class="card-title">Новые заявки
+                        <span class="badge bg-primary position-absolute top-0 end-0 m-2">{{ pending_applications_count }}</span>
+                    </h4>
+                    <p class="card-text">Просмотр новых заявок клиентов.</p>
+                    <a href="{% url 'applications' %}" class="btn btn-primary w-100">Перейти к заявкам</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,9 +1,9 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from .form import PaymentForm, ChildForm
-from .models import Child, Hall, Parent
+from .form import PaymentForm, ChildForm, ApplicationForm
+from .models import Child, Hall, Parent, PDFDocument, Trainer, Application
 # from .payment_processor import create_payment
 
 import json
@@ -96,7 +96,7 @@ def get_children(request):
     training_option_id = request.GET.get('training_option_id')
     if hall_id and training_option_id:
         children = Child.objects.filter(hall_id=hall_id, training_option_id=training_option_id)
-        data = list(children.values('id', 'full_name'))
+        data = list(children.values('id', 'full_name', 'training_option__price'))
         return JsonResponse(data, safe=False)
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
@@ -110,13 +110,36 @@ def payment_success_view(request):
 def info_view(request):
     halls = Hall.objects.all()
     selected_hall = request.GET.get('hall')
-    children = Child.objects.filter(hall__id=selected_hall) if selected_hall else None
+    children = Child.objects.filter(hall__id=selected_hall, active=True) if selected_hall else None
 
     return render(request, 'payments/info.html', {
         'halls': halls,
         'children': children,
         'selected_hall': selected_hall
     })
+
+
+def business_summary(request):
+    halls = Hall.objects.all()
+    trainers = Trainer.objects.all()
+
+    total_income = sum(hall.get_income() for hall in halls)
+    total_rent = sum(hall.month_price + hall.additional_expenses for hall in halls)
+    total_salary = sum(trainer.calculate_salary() for trainer in trainers)
+    total_expenses = total_rent + total_salary
+    final_income = total_income - total_expenses  # Чистый доход с учетом всех затрат
+
+    context = {
+        'halls': halls,
+        'trainers': trainers,
+        'total_income': total_income,
+        'total_salary': total_salary,
+        'total_rent': total_rent,
+        'total_expenses': total_expenses,
+        'final_income': final_income,
+    }
+
+    return render(request, 'business_summary.html', context)
 
 
 def terms_view(request):
@@ -129,3 +152,47 @@ def privacy_view(request):
 
 def home_view(request):
     return render(request, 'home.html')
+
+
+def pdf_page_view(request):
+    selected_pdf_id = request.GET.get('pdf')  # Получаем ID выбранного документа из GET-параметров
+    selected_pdf = None
+
+    if selected_pdf_id:
+        selected_pdf = get_object_or_404(PDFDocument, id=selected_pdf_id)
+
+    pdfs = PDFDocument.objects.all()
+    return render(request, 'pdf_page.html', {
+        'pdfs': pdfs,
+        'selected_pdf': selected_pdf,
+        'selected_pdf_id': selected_pdf_id,
+    })
+
+
+def application_list(request):
+    applications = Application.objects.all()
+    return render(request, 'applications/application_list.html', {'applications': applications})
+
+
+def application_update(request, pk):
+    application = get_object_or_404(Application, pk=pk)
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST, instance=application)
+        if form.is_valid():
+            form.save()
+            return redirect('/applications')
+    else:
+        form = ApplicationForm(instance=application)
+    return render(request, 'applications/application_update.html', {'form': form, 'application': application})
+
+
+def admin_check(user):
+    return user.is_superuser
+
+
+@user_passes_test(admin_check)
+def admin_page(request):
+    pending_applications_count = Application.objects.filter(status=False).count()
+    # Здесь вы можете добавить логику для страницы администратора
+    return render(request, 'admin-page.html',
+                  {'pending_applications_count': pending_applications_count})

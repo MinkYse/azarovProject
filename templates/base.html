@@ -26,8 +26,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                        {% if not user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/payment/' %}active{% endif %}" href="/payment/">Оплата</a>
+                            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Оплата</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/pdfs/' %}active{% endif %}" href="/pdfs/">Документы</a>
                         </li>
                         {% if user.is_authenticated %}
                             <li class="nav-item">
@@ -36,6 +41,11 @@
                             <li class="nav-item">
                                 <a class="nav-link {% if request.path == '/add_child/' %}active{% endif %}" href="/add_child/">Добавить ребенка</a>
                             </li>
+                            {% if user.is_superuser %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if request.path == '/admin-page/' %}active{% endif %}" href="{% url 'admin_page' %}">Админ</a>
+                                </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <form action="{% url 'logout' %}" method="post">
                                   {% csrf_token %}
@@ -47,6 +57,11 @@
                                 <a class="nav-link {% if request.path == '/login/' %}active{% endif %}" href="{% url 'login' %}">Админ</a>
                             </li>
                         {% endif %}
+{#                    {% if user.is_superuser %}#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link {% if request.path == '/admin-page/' %}active{% endif %}" href="{% url 'admin_page' %}">Админ</a>#}
+{#                        </li>#}
+{#                    {% endif %}#}
                     </ul>
                 </div>
             </nav>
@@ -72,8 +87,8 @@
             <!-- Контактная информация -->
             <div class="col-md-4">
                 <h5>Контакты</h5>
-                <p>Email: <a href="mailto:info@example.com" class="text-white">info@example.com</a></p>
-                <p>Телефон: <a href="tel:+74951234567" class="text-white">+7 (495) 123-45-67</a></p>
+                <p>Email: <a href="mailto:azarov-taekwondo@yandex.ru" class="text-white">azarov-taekwondo@yandex.ru</a></p>
+                <p>Телефон: <a href="tel:+74812567470" class="text-white">7 (4812) 56-74-70</a></p>
             </div>
             <!-- Информация о платежах -->
             <div class="col-md-4">
