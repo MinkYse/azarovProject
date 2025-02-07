@@ -6,8 +6,8 @@ import re
 
 def fetch_emails_from_yandex():
     # Ваши учетные данные
-    username = "azarov-taekwondo@yandex.ru"
-    password = "ogxecuvafpwzhzss"
+    username = ""
+    password = ""
 
     # Подключение к почтовому серверу Яндекса через IMAP
     imap = imaplib.IMAP4_SSL("imap.yandex.com")

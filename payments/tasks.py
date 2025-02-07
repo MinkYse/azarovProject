@@ -33,8 +33,6 @@ def reset_is_paid():
 
     asyncio.run(bot.send_message(chat_id=user_id, text=message, parse_mode='HTML'))
     Child.objects.filter(is_vip=False, active=True).update(is_paid=False)
-    # print('hello from celery')
-    # return
 
 
 @shared_task
